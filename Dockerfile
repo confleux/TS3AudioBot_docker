@@ -11,8 +11,15 @@ ENV USER ts3bot
 # install all pre-requisites, these will be needed always
 RUN apk add \
     opus-dev \
-    youtube-dl \
-    ffmpeg
+    ffmpeg \
+    python3
+
+# link python3 as python
+RUN ln -sf /usr/bin/python3 /usr/bin/python
+
+#download youtube-dl nightly
+RUN wget https://github.com/ytdl-org/ytdl-nightly/releases/latest/download/youtube-dl -O /usr/local/bin/youtube-dl
+RUN chmod +x /usr/local/bin/youtube-dl
 
 # download and install the TS3AudioBot in the specified version and flavour
 RUN mkdir -p /app \
